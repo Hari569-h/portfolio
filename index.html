@@ -25,6 +25,17 @@
         box-sizing: inherit;
         font-family: inherit;
       }
+.footer .social-icons a {
+  margin: 0 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+.footer .social-icons a:hover {
+  color: #1da1f2; /* Example hover effect */
+}
 
       html {
         font-size: 62.5%;
@@ -1759,170 +1770,182 @@
     </div>
   </div>
 </div>
-    <script>
-      // Mobile menu functionality
-      const hamMenuBtn = document.querySelector('.header__main-ham-menu-cont');
-      const smallMenu = document.querySelector('.header__sm-menu');
-      const headerHamMenuBtn = document.querySelector('.header__main-ham-menu');
-      const headerHamMenuCloseBtn = document.querySelector('.header__main-ham-menu-close');
-      const headerSmallMenuLinks = document.querySelectorAll('.header__sm-menu-link');
+   <script>
+    // No preventDefault so links open normally
+document.querySelectorAll(".footer a").forEach(link => {
+  link.addEventListener("click", () => {
+    console.log("Social link clicked:", link.href);
+  });
+});
 
+  // Ensure DOM is ready (works with inline script or when using `defer`)
+  document.addEventListener('DOMContentLoaded', function () {
+    // ===== Mobile menu =====
+    const hamMenuBtn = document.querySelector('.header__main-ham-menu-cont');
+    const smallMenu = document.querySelector('.header__sm-menu');
+    const headerHamMenuBtn = document.querySelector('.header__main-ham-menu');
+    const headerHamMenuCloseBtn = document.querySelector('.header__main-ham-menu-close');
+    const headerSmallMenuLinks = document.querySelectorAll('.header__sm-menu-link');
+
+    if (hamMenuBtn && smallMenu && headerHamMenuBtn && headerHamMenuCloseBtn) {
       hamMenuBtn.addEventListener('click', () => {
-        if (smallMenu.classList.contains('header__sm-menu--active')) {
-          smallMenu.classList.remove('header__sm-menu--active');
-        } else {
-          smallMenu.classList.add('header__sm-menu--active');
-        }
-        if (headerHamMenuBtn.classList.contains('d-none')) {
-          headerHamMenuBtn.classList.remove('d-none');
-          headerHamMenuCloseBtn.classList.add('d-none');
-        } else {
-          headerHamMenuBtn.classList.add('d-none');
-          headerHamMenuCloseBtn.classList.remove('d-none');
-        }
+        smallMenu.classList.toggle('header__sm-menu--active');
+        headerHamMenuBtn.classList.toggle('d-none');
+        headerHamMenuCloseBtn.classList.toggle('d-none');
       });
 
-      for (let i = 0; i < headerSmallMenuLinks.length; i++) {
-        headerSmallMenuLinks[i].addEventListener('click', () => {
+      headerSmallMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
           smallMenu.classList.remove('header__sm-menu--active');
           headerHamMenuBtn.classList.remove('d-none');
           headerHamMenuCloseBtn.classList.add('d-none');
         });
-      }
+      });
+    }
 
-      // Simple form validation
-      const contactForm = document.querySelector('.contact__form');
-      contactForm.addEventListener('submit', function(e) {
+    // ===== Contact form (guarded) =====
+    // If you used Option 1 (added class to form):
+    // const contactForm = document.querySelector('.contact__form');
+    // If you didn't change HTML, use the more robust selector below:
+    const contactForm = document.querySelector('.contact__form-container form');
+
+    if (contactForm) {
+      // EITHER: let Formspree handle submission (recommended: no preventDefault)
+      // contactForm.addEventListener('submit', function () {
+      //   // Optional UX: show a toast/snackbar right before submit
+      // });
+
+      // OR: Custom message without sending (demo mode)
+      contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
+        const name = document.getElementById('name')?.value?.trim();
+        const email = document.getElementById('email')?.value?.trim();
+        const message = document.getElementById('message')?.value?.trim();
+
         if (name && email && message) {
           alert('Thank you for your message! I will get back to you soon.');
           contactForm.reset();
+        } else {
+          alert('Please fill in all fields.');
         }
       });
-      
-      // Chatbot functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        const chatbotButton = document.querySelector('.chatbot-button');
-        const chatbotWindow = document.querySelector('.chatbot-window');
-        const chatbotClose = document.querySelector('.chatbot-close');
-        const chatbotInput = document.querySelector('.chatbot-input');
-        const chatbotSend = document.querySelector('.chatbot-send');
-        const chatbotMessages = document.querySelector('.chatbot-messages');
-        
-        // Toggle chatbot window
-        chatbotButton.addEventListener('click', function() {
-          chatbotWindow.classList.toggle('active');
-        });
-        document.querySelectorAll('.main-footer__social-cont a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    console.log('Footer link clicked:', e.target.href);
-    // Remove e.preventDefault() if present elsewhere
-  });
-});
-        // Close chatbot window
-        chatbotClose.addEventListener('click', function() {
-          chatbotWindow.classList.remove('active');
-        });
-        
-        // Send message function
-        function sendMessage() {
-          const message = chatbotInput.value.trim();
-          if (message) {
-            // Add user message
-            addMessage(message, 'user');
-            chatbotInput.value = '';
-            
-            // Show typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'typing-indicator';
-            typingIndicator.innerHTML = `
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-            `;
-            chatbotMessages.appendChild(typingIndicator);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            
-            // Send to Gemini API
-            setTimeout(() => {
-              // For demo purposes, we'll simulate a response
-              // In a real implementation, you would call the Gemini API
-              simulateGeminiResponse(message);
-              
-              // Remove typing indicator
-              chatbotMessages.removeChild(typingIndicator);
-            }, 1500);
-          }
-        }
-        
-        // Send message on button click
-        chatbotSend.addEventListener('click', sendMessage);
-        
-        // Send message on Enter key
-        chatbotInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            sendMessage();
-          }
-        });
-        
-        // Add message to chat
-        function addMessage(text, sender) {
-          const messageElement = document.createElement('div');
-          messageElement.className = `message ${sender}-message`;
-          messageElement.textContent = text;
-          chatbotMessages.appendChild(messageElement);
-          chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
-        
-        // Simulate Gemini API response (replace with actual API call)
-        function simulateGeminiResponse(userMessage) {
-          // This is a simulation - replace with actual API call to Gemini
-          const responses = [
-            "I'm an AI assistant designed to help answer questions about Yarragolla Hariprasad's portfolio.",
-            "Hariprasad is a Computer Science undergraduate with expertise in AI and web development.",
-            "He has built projects like a Cashless Fee System and AI Chatbot using modern technologies.",
-            "You can contact him through the form on this website for collaboration opportunities.",
-            "He's currently looking for startup internships where he can apply his skills.",
-            "His technical skills include Python, Java, Firebase, and Generative AI."
-          ];
-          
-          // Simple response logic based on keywords
-          let response = "";
-          
-          if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
-            response = "Hello! How can I help you learn more about Hariprasad's work?";
-          } else if (userMessage.toLowerCase().includes('project')) {
-            response = "Hariprasad has created several projects including a Cashless College Fee System with blockchain verification and an AI chatbot for FAQs.";
-          } else if (userMessage.toLowerCase().includes('skill')) {
-            response = "His technical skills include Python, Java, SQL, HTML, CSS, Firebase, Generative AI, and more.";
-          } else if (userMessage.toLowerCase().includes('contact')) {
-            response = "You can reach out through the contact form on this website or connect via his LinkedIn profile.";
-          } else {
-            // Random response for other queries
-            response = responses[Math.floor(Math.random() * responses.length)];
-          }
-          
-          addMessage(response, 'bot');
-        }
-        function addMessage(text, sender) {
-  const messageElement = document.createElement('div');
-  messageElement.className = `message ${sender}-message`;
-  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  messageElement.innerHTML = `${text}<div class="timestamp" style="font-size: 0.8em; opacity: 0.7;">${timestamp}</div>`;
-  chatbotMessages.appendChild(messageElement);
-  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-}
-     
+    }
 
-document.querySelectorAll('.main-footer__social-cont a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    console.log('Clicked:', e.currentTarget.href);
+    // ===== Footer social links (log safely) =====
+    document.querySelectorAll('.main-footer__social-cont a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        console.log('Clicked:', e.currentTarget.href);
+      });
+    });
+
+    // ===== Chatbot =====
+    const chatbotButton = document.querySelector('.chatbot-button');
+    const chatbotWindow = document.querySelector('.chatbot-window');
+    const chatbotClose = document.querySelector('.chatbot-close');
+    const chatbotInput = document.querySelector('.chatbot-input');
+    const chatbotSend = document.querySelector('.chatbot-send');
+    const chatbotMessages = document.querySelector('.chatbot-messages');
+
+    if (chatbotButton && chatbotWindow) {
+      chatbotButton.addEventListener('click', function () {
+        chatbotWindow.classList.toggle('active');
+        // Optional: focus input when opening
+        if (chatbotWindow.classList.contains('active')) {
+          setTimeout(() => chatbotInput?.focus(), 50);
+        }
+      });
+    }
+
+    if (chatbotClose && chatbotWindow) {
+      chatbotClose.addEventListener('click', function () {
+        chatbotWindow.classList.remove('active');
+      });
+    }
+
+    function addMessage(text, sender) {
+      if (!chatbotMessages) return;
+      const messageElement = document.createElement('div');
+      messageElement.className = `message ${sender}-message`;
+      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      messageElement.innerHTML = `${text}<div class="timestamp">${timestamp}</div>`;
+      chatbotMessages.appendChild(messageElement);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function sendMessage() {
+      const text = chatbotInput?.value?.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      if (chatbotInput) chatbotInput.value = '';
+
+      // typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'typing-indicator';
+      typingIndicator.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      `;
+      chatbotMessages.appendChild(typingIndicator);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+      // Simulated AI response
+      setTimeout(() => {
+        chatbotMessages.removeChild(typingIndicator);
+        simulateGeminiResponse(text);
+      }, 1000);
+    }
+
+    if (chatbotSend) {
+      chatbotSend.addEventListener('click', sendMessage);
+    }
+
+    if (chatbotInput) {
+      chatbotInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault(); // prevent accidental form submission on Enter
+          sendMessage();
+        }
+      });
+    }
+
+    function simulateGeminiResponse(userMessage) {
+      const responses = [
+        "I'm an AI assistant designed to help answer questions about Yarragolla Hariprasad's portfolio.",
+        "Hariprasad is a Computer Science undergraduate with expertise in AI and web development.",
+        "He has built projects like a Cashless Fee System and AI Chatbot using modern technologies.",
+        "You can contact him through the form on this website for collaboration opportunities.",
+        "He's currently looking for startup internships where he can apply his skills.",
+        "His technical skills include Python, Java, Firebase, and Generative AI."
+      ];
+
+      let response = "";
+      const msg = userMessage.toLowerCase();
+      if (msg.includes('hello') || msg.includes('hi')) {
+        response = "Hello! How can I help you learn more about Hariprasad's work?";
+      } else if (msg.includes('project')) {
+        response = "Hariprasad has created projects like a Cashless Fee System with blockchain verification and an AI chatbot for FAQs.";
+      } else if (msg.includes('skill')) {
+        response = "His technical skills include Python, Java, SQL, HTML, CSS, Firebase, Generative AI, and more.";
+      } else if (msg.includes('contact')) {
+        response = "You can reach out through the contact form on this website or connect via his LinkedIn profile.";
+      } else {
+        response = responses[Math.floor(Math.random() * responses.length)];
+      }
+
+      addMessage(response, 'bot');
+    }
+
+    // ===== Optional: Pay button (demo) =====
+    const payBtn = document.querySelector('.pay-button');
+    if (payBtn) {
+      payBtn.addEventListener('click', () => {
+        alert('Payment demo: integrate Razorpay or your payment gateway here.');
+      });
+    }
   });
-});
+
 
         // In a real implementation, you would use the Gemini API like this:
         /*
@@ -1953,7 +1976,6 @@ document.querySelectorAll('.main-footer__social-cont a').forEach(link => {
           }
         }
         */
-      });
     </script>
   </body>
 </html>
