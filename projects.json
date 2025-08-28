@@ -1,0 +1,39 @@
+[
+  {
+    "title": "IT Internship Finder Bot",
+    "subtitle": "Python, Firebase, Telegram",
+    "description": "An automated Python bot that finds and notifies about the latest IT internships from multiple job boards and RSS feeds. Features include scraping global and India-specific sources, real-time Telegram notifications, and Firebase storage.",
+    "link": "https://github.com/Hari569-h/Intership-bot",
+    "color": "#4B8BBE"
+  },
+  {
+    "title": "SVEC Cashless Fee System",
+    "subtitle": "Blockchain-Based Receipt Verification",
+    "description": "Digital fee collection system with secure, tamper-proof receipts using blockchain verification.",
+    "link": "https://hari569-h.github.io/SVEC-Cashless-Fee-System/index.html",
+    "color": "#0062b9"
+  },
+  {
+    "title": "AI Chatbot for FAQs",
+    "subtitle": "Natural Language Processing",
+    "description": "Built a Python NLP chatbot with Flask. Handles 20+ FAQ categories for faster automation.",
+    "link": "#",
+    "color": "#28a745"
+  },
+  {
+    "title": "Portfolio Website",
+    "subtitle": "Responsive Design",
+    "description": "Personal portfolio built with HTML, CSS, and JavaScript. Optimized for mobile devices.",
+    "link": "#",
+    "color": "#ff6b6b"
+  },
+
+  {
+  "title": "Automated Internship Outreach Workflow",
+  "subtitle": "n8n + Google Sheets + Gemini AI",
+  "description": "A full automation pipeline built in n8n that reads founder/startup details from Google Sheets, generates personalized internship emails using Google Gemini AI, and sends them automatically via SMTP with tracking and logging.",
+  "link": "",
+  "color": "#f59e0b"
+}
+
+]
