@@ -1,5 +1,26 @@
 [
   {
+    "title": "AI-Powered Email Digest System",
+    "subtitle": "n8n + Google Sheets + Gemini AI + Telegram",
+    "description": "Automated workflow that summarizes inbox and sends clean digests to Telegram every hour. Features IMAP integration, Google Sheets logging, Gemini AI summarization, and Telegram notifications.",
+    "link": "https://github.com/Hari569-h",
+    "color": "#8B5CF6"
+  },
+  {
+    "title": "Serverless Contact Form with AWS + Netlify",
+    "subtitle": "AWS Lambda + API Gateway + DynamoDB",
+    "description": "Fully serverless contact form system with Netlify frontend, AWS API Gateway, Lambda, and DynamoDB. Secure, scalable, and cost-efficient solution without managing servers.",
+    "link": "https://github.com/Hari569-h/serverless-contact-form",
+    "color": "#10B981"
+  },
+  {
+    "title": "AI Resume Analyzer",
+    "subtitle": "Python + Streamlit + PyPDF2",
+    "description": "Web application that analyzes resumes against job descriptions, providing matching scores, missing keywords, and actionable insights to optimize job applications.",
+    "link": "https://helpful-piroshki-c60ffe.netlify.app",
+    "color": "#3B82F6"
+  },
+  {
     "title": "IT Internship Finder Bot",
     "subtitle": "Python, Firebase, Telegram",
     "description": "An automated Python bot that finds and notifies about the latest IT internships from multiple job boards and RSS feeds. Features include scraping global and India-specific sources, real-time Telegram notifications, and Firebase storage.",
@@ -17,23 +38,21 @@
     "title": "AI Chatbot for FAQs",
     "subtitle": "Natural Language Processing",
     "description": "Built a Python NLP chatbot with Flask. Handles 20+ FAQ categories for faster automation.",
-    "link": "#",
+    "link": "https://github.com/Hari569-h",
     "color": "#28a745"
   },
   {
     "title": "Portfolio Website",
     "subtitle": "Responsive Design",
     "description": "Personal portfolio built with HTML, CSS, and JavaScript. Optimized for mobile devices.",
-    "link": "#",
+    "link": "https://github.com/Hari569-h",
     "color": "#ff6b6b"
   },
-
   {
-  "title": "Automated Internship Outreach Workflow",
-  "subtitle": "n8n + Google Sheets + Gemini AI",
-  "description": "A full automation pipeline built in n8n that reads founder/startup details from Google Sheets, generates personalized internship emails using Google Gemini AI, and sends them automatically via SMTP with tracking and logging.",
-  "link": "",
-  "color": "#f59e0b"
-}
-
+    "title": "Automated Internship Outreach Workflow",
+    "subtitle": "n8n + Google Sheets + Gemini AI",
+    "description": "A full automation pipeline built in n8n that reads founder/startup details from Google Sheets, generates personalized internship emails using Google Gemini AI, and sends them automatically via SMTP with tracking and logging.",
+    "link": "https://github.com/Hari569-h",
+    "color": "#f59e0b"
+  }
 ]
